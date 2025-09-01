@@ -2,93 +2,206 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Information and Electronic Warfare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Winning the Invisible Battlespace : IW and EW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
+    :root{
+      --bg: #0b1020; /* deep navy */
+      --card: #11172e;
+      --muted: #8ca0ff;
+      --text: #e6e9ff;
+      --text-dim:#b7c0ff;
+      --accent:#7aa2ff;
+      --ring:#2c3c88;
     }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;}
+    body{
+      font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 80% -10%, #1b2350 0%, transparent 60%),
+                  radial-gradient(900px 600px at -10% 20%, #141b3b 0%, transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(180deg, rgba(11,16,32,.9), rgba(11,16,32,.6));
+      border-bottom:1px solid #1f2652;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 20px;}
+    h1{font-weight:800;letter-spacing:.2px;margin:8px 0 6px;font-size:clamp(1.5rem, 2.6vw + .6rem, 2.6rem)}
+    .sub{color:var(--text-dim);margin:0 0 8px;font-weight:400}
+    .tag{
+      display:inline-block;border:1px solid var(--ring);border-radius:999px;padding:6px 10px;margin-right:8px;font-size:.85rem;color:var(--muted);
+      background:linear-gradient(180deg, #0e1533, #0a0f26);
+    }
+    main{padding:24px 20px 60px}
+    section{margin:28px auto}
+    .grid{display:grid;gap:18px}
+    .grid.cols-2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    @media (max-width: 860px){.grid.cols-2{grid-template-columns:1fr}}
 
-    header {
-      background-color: #003366;
-      color: white;
-      padding: 1rem;
-      text-align: center;
+    .card{
+      background:linear-gradient(180deg, rgba(17,23,46,.9), rgba(14,19,38,.9));
+      border:1px solid #1d2550;border-radius:18px;overflow:hidden;position:relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
+    .card h2{margin:0;padding:18px 18px 0;font-size:1.2rem}
+    .card p, .card ul{padding:0 18px 18px;margin:0;color:var(--text-dim)}
+    .card ul{padding-top:10px}
+    .card li{margin:6px 0}
+    .media{
+      position:relative;overflow:hidden;height:220px;background:#0e1433;border-bottom:1px solid #1e2552
+    }
+    .media img{
+      width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.05)
+    }
+    figure{margin:0}
+    figcaption{font-size:.85rem;color:var(--text-dim);padding:8px 18px 16px}
 
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #2b377a;border-radius:999px;
+      background:linear-gradient(180deg, #10183c, #0d1431); color:var(--text);
+      box-shadow: inset 0 0 0 1px #0a0f28;
     }
+    .kicker{font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:.78rem}
 
-    section {
-      margin-bottom: 2rem;
-    }
+    .gallery{display:grid;gap:14px;grid-template-columns:repeat(4,1fr)}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:12px;border:1px solid #1f2652}
+    @media (max-width: 860px){.gallery{grid-template-columns:repeat(2,1fr)}}
 
-    h1, h2 {
-      color: #003366;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #eaeaea;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 600px) {
-      main {
-        padding: 0.5rem;
-      }
-    }
+    .footer{margin-top:36px;color:var(--text-dim);font-size:.95rem}
+    a{color:var(--accent)}
+    .note{font-size:.9rem;color:#c9d3ff}
   </style>
 </head>
 <body>
-
   <header>
-    <h1>Information and Electronic Warfare</h1>
+    <div class="wrap">
+      <h1>Winning the Invisible Battlespace : IW and EW</h1>
+      <p class="sub">A concise, visual primer on <strong>Information Warfare (IW)</strong> and <strong>Electronic Warfare (EW)</strong>—what they are, how they’re organized, and how they combine to shape modern conflicts.</p>
+      <span class="tag">#InformationWarfare</span>
+      <span class="tag">#ElectronicWarfare</span>
+      <span class="tag">#SpectrumDominance</span>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>What is Information Warfare?</h2>
-      <p>
-        Information Warfare involves the use and management of information to gain a competitive advantage over an adversary. It includes propaganda, cyber operations, disinformation campaigns, and psychological operations to manipulate public opinion or enemy decision-making.
-      </p>
+  <main class="wrap">
+    <!-- Definitions -->
+    <section class="grid cols-2" id="definitions">
+      <article class="card">
+        <div class="media">
+          <img src="iw1.jpeg"/>
+        </div>
+        <h2>What is Information Warfare (IW)?</h2>
+        <p>
+          <span class="kicker">Definition</span><br>
+          The coordinated creation, protection, disruption, or exploitation of information and decision-making across the physical, cyber, and cognitive domains to gain advantage over an adversary.
+        </p>
+        <p class="note">IW targets how people and systems <em>perceive</em>, <em>process</em>, and <em>act</em> on information.</p>
+      </article>
+
+      <article class="card">
+        <div class="media">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop" alt="Rotating radar antenna symbolizing the electromagnetic spectrum"/>
+        </div>
+        <h2>What is Electronic Warfare (EW)?</h2>
+        <p>
+          <span class="kicker">Definition</span><br>
+          Military action using electromagnetic and directed energy to control the spectrum, attack an enemy’s use of it, and protect friendly freedom of action.
+        </p>
+        <p class="note">EW targets how forces <em>sense</em>, <em>communicate</em>, and <em>navigate</em> using RF energy.</p>
+      </article>
     </section>
 
-    <section>
-      <h2>What is Electronic Warfare?</h2>
-      <p>
-        Electronic Warfare (EW) uses electromagnetic spectrum to detect, disrupt, or deceive enemy electronics. EW is typically categorized into Electronic Attack (EA), Electronic Protection (EP), and Electronic Support (ES).
-      </p>
+    <!-- Categories -->
+    <section id="categories">
+      <div class="grid cols-2">
+        <article class="card">
+          <figure class="media">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop" alt="Satellite dishes and antennas used for global communications"/>
+          </figure>
+          <h2>Key Categories of IW</h2>
+          <ul>
+            <li><strong>Cyber Operations</strong> — intrusion, exploitation, and defense of networks and critical systems.</li>
+            <li><strong>Psychological Operations (PSYOP)</strong> — influence and cognitive shaping of target audiences.</li>
+            <li><strong>Military Deception (MILDEC)</strong> &amp; <strong>OPSEC</strong> — mislead adversaries; deny indicators of intent.</li>
+            <li><strong>Information Operations (IO)</strong> — synchronized use of cyber, EW, PSYOP, deception, and public affairs.</li>
+            <li><strong>Intelligence / OSINT</strong> — collection, fusion, and analysis to drive decisions faster (OODA advantage).</li>
+            <li><strong>Strategic Communications</strong> — narrative, perception, and legitimacy in the infosphere.</li>
+          </ul>
+          <figcaption>IW spans digital networks and human cognition — bits and beliefs.</figcaption>
+        </article>
+
+        <article class="card">
+          <figure class="media">
+            <img src="https://images.unsplash.com/photo-1543233604-3baca4d355ac?q=80&w=1600&auto=format&fit=crop" alt="Electronic spectrum visual and waveforms on a screen"/>
+          </figure>
+          <h2>Key Categories of EW</h2>
+          <ul>
+            <li><strong>Electronic Support (ES)</strong> — sense, detect, identify, and geolocate emitters (ELINT/COMINT/ESM).</li>
+            <li><strong>Electronic Attack (EA)</strong> — jamming, deception, spoofing, anti-radiation weapons, directed energy.</li>
+            <li><strong>Electronic Protection (EP)</strong> — hardening, frequency agility, LPI/LPD waveforms, anti-jam GPS/comm.</li>
+            <li><strong>Spectrum Management</strong> — planning, deconfliction, dynamic allocation for joint operations.</li>
+          </ul>
+          <figcaption>EW dominates the RF environment — who can sense, talk, and navigate, and who cannot.</figcaption>
+        </article>
+      </div>
     </section>
 
-    <section>
-      <h2>Modern Use Cases</h2>
+    <!-- Synergy -->
+    <section id="synergy" class="card">
+      <div class="media" style="height:280px">
+        <img src="https://images.unsplash.com/photo-1504714146340-959ca07b2c52?q=80&w=1800&auto=format&fit=crop" alt="Mission planning table with maps and devices"/>
+      </div>
+      <h2>IW ✕ EW: Synergy in Current Warfare</h2>
+      <p>Modern campaigns fuse IW and EW to compress the kill-chain and expand decision advantage. Typical patterns include:</p>
       <ul>
-        <li>Cyber attacks to disable infrastructure</li>
-        <li>Jamming enemy communications</li>
-        <li>Intercepting enemy signals for intelligence</li>
-        <li>Disinformation spread via social media</li>
+        <li><strong>ISR &amp; Targeting Loop</strong> — ES/ESM cues cyber reconnaissance; OSINT validates; kinetic or non-kinetic effects follow.</li>
+        <li><strong>SEAD/DEAD with Cyber</strong> — cyber probes expose IADS vulnerabilities; EA blinds radars; precision fires close out targets.</li>
+        <li><strong>Navigation Warfare</strong> — GPS jamming/spoofing disrupts PNT; resilient waveforms and multi-sensor fusion restore accuracy.</li>
+        <li><strong>Counter‑UAS</strong> — ES detects links, EA severs control or spoofs GNSS; kinetic interceptors as a last resort.</li>
+        <li><strong>Information Advantage</strong> — rapid truth-telling and attribution counter adversary narratives amplified by IW toolchains.</li>
       </ul>
+
+      <div class="wrap" style="padding: 0 18px 18px">
+        <div class="gallery" aria-label="Illustrative imagery of IW and EW in practice">
+          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" alt="Operator at a computer security console"/>
+          <img src="https://images.unsplash.com/photo-1516016575610-3b48648af1ba?q=80&w=1200&auto=format&fit=crop" alt="Signals mast and antennas against the sky"/>
+          <img src="https://images.unsplash.com/photo-1477874869851-5d5f3aa99d6b?q=80&w=1200&auto=format&fit=crop" alt="UAS drone in flight"/>
+          <img src="https://images.unsplash.com/photo-1520975922284-6c0c4fd3a6f6?q=80&w=1200&auto=format&fit=crop" alt="Soldier using a radio on exercise"/>
+        </div>
+      </div>
+
+      <figcaption>From cyber intrusions to radar jamming and resilient comms, IW and EW multiply each other’s effects.</figcaption>
     </section>
 
-    <section>
-      <h2>Conclusion</h2>
-      <p>
-        In modern warfare, information and electronic warfare are critical components that can determine the outcome of conflicts without physical engagement. Understanding and countering these threats is vital for national security.
-      </p>
+    <!-- Quick recap -->
+    <section class="grid cols-2">
+      <article class="card">
+        <h2>Why It Matters</h2>
+        <ul>
+          <li><strong>Tempo</strong>: faster observe–orient–decide–act (OODA) cycles win campaigns.</li>
+          <li><strong>Denial</strong>: deny adversary sensing, comms, and trust in their data.</li>
+          <li><strong>Resilience</strong>: hardened C2 and PNT ensure continuity under attack.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>How to Prepare</h2>
+        <ul>
+          <li>Joint spectrum planning and live-virtual-constructive EW/IW training.</li>
+          <li>Zero-trust cyber, deception-aware analytics, and rapid attribution.</li>
+          <li>Adaptive waveforms, anti-jam GNSS, and multi-path comms (SATCOM + HF + mesh).</li>
+        </ul>
+      </article>
     </section>
+
+    <p class="footer">Images are illustrative (Unsplash). Customize text and pictures to your scenario or case study.</p>
   </main>
-
-  <footer>
-    &copy; 2025 Information Warfare Insights. All rights reserved.
-  </footer>
-
 </body>
 </html>
