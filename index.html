@@ -5,24 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Information Warfare & Electronic Warfare</title>
   <style>
-    /* Background animation: radar sweep */
+    /* Darker background and canvas layering fix */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: #101426;
-      background: radial-gradient(circle at center, #e8eefc 0%, #cbd7f6 100%);
+      color: #f0f4f8;
+      background: radial-gradient(circle at center, #0a0f1c 0%, #000000 100%);
       overflow-x: hidden;
     }
 
+    /* Make canvases visible above the page background but beneath content */
     canvas#bg, canvas#malware {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      background: transparent;
+      z-index: 0;
       pointer-events: none;
+      background: transparent;
+    }
+
+    /* Bring page content above canvases */
+    header, main, section {
+      position: relative;
+      z-index: 2;
     }
 
     header {
@@ -32,9 +39,10 @@
     header h1 {
       font-size: 2.5rem;
       margin-bottom: 10px;
+      color: #9fe89f;
     }
     header p {
-      color: #2c3558;
+      color: #c0d0f0;
     }
 
     main {
@@ -44,18 +52,18 @@
     }
 
     section {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid #9aa8d9;
+      background: rgba(15, 20, 30, 0.85);
+      border: 1px solid #3a4a6f;
       border-radius: 16px;
       margin: 20px 0;
       padding: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
       animation: fadeIn 1.5s ease;
-      color: #101426;
+      color: #e0e6f5;
     }
 
     section h2 {
-      color: #206030;
+      color: #58e058;
       margin-top: 0;
     }
 
@@ -78,6 +86,7 @@
 
   <header>
     <h1>Winning the Invisible Battlespace</h1>
+    <H2> Developed by Syndicate Group A</H2>
     <p>Information Warfare (IW) & Electronic Warfare (EW)</p>
   </header>
 
@@ -117,29 +126,45 @@
   </main>
 
   <script>
-    // Radar sweep animation on canvas
+    // Handle high-DPI screens and resizing correctly for both canvases
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
-    resizeCanvas();
+    const malwareCanvas = document.getElementById('malware');
+    const mctx = malwareCanvas.getContext('2d');
 
-    window.addEventListener('resize', resizeCanvas);
+    // Malware symbols
+    const malwareSymbols = ["⚠", "!", "X", "☠", "💀", "HACKED!", "ERROR404", "0xBAD", "URGENT!!"];
+    let malwareChars = [];
 
-    let angle = 0;
+    function resizeAll() {
+      const dpr = window.devicePixelRatio || 1;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      [ {c: canvas, ct: ctx}, {c: malwareCanvas, ct: mctx} ].forEach(obj => {
+        obj.c.width = Math.floor(w * dpr);
+        obj.c.height = Math.floor(h * dpr);
+        obj.c.style.width = w + 'px';
+        obj.c.style.height = h + 'px';
+        obj.ct.setTransform(dpr, 0, 0, dpr, 0, 0);
+      });
+
+      initMalware(w, h);
     }
 
-    function drawRadar() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    window.addEventListener('resize', resizeAll);
+    resizeAll();
 
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const radius = Math.min(canvas.width, canvas.height) / 2.2;
+    // Radar sweep variables
+    let angle = 0;
 
-      // Radar circles (green)
-      ctx.strokeStyle = 'rgba(0,255,0,0.2)';
+    function drawRadar(w, h) {
+      ctx.clearRect(0, 0, w, h);
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = Math.min(w, h) / 2.2;
+
+      ctx.strokeStyle = 'rgba(0,255,0,0.12)';
       ctx.lineWidth = 1;
       for (let r = radius; r > 0; r -= radius / 4) {
         ctx.beginPath();
@@ -147,9 +172,8 @@
         ctx.stroke();
       }
 
-      // Radar sweep (green)
       const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-      gradient.addColorStop(0, 'rgba(0,255,0,0.25)');
+      gradient.addColorStop(0, 'rgba(0,255,0,0.22)');
       gradient.addColorStop(1, 'rgba(0,255,0,0)');
 
       ctx.beginPath();
@@ -159,56 +183,66 @@
       ctx.fillStyle = gradient;
       ctx.fill();
 
-      angle += 0.01;
-      requestAnimationFrame(drawRadar);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius);
+      ctx.strokeStyle = 'rgba(0,255,0,0.6)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      angle += 0.0085;
+      if (angle > Math.PI * 2) angle -= Math.PI * 2;
     }
 
-    drawRadar();
-
-    // Malware attack floating code effect
-    const malwareCanvas = document.getElementById('malware');
-    const mctx = malwareCanvas.getContext('2d');
-    resizeMalware();
-
-    window.addEventListener('resize', resizeMalware);
-
-    let malwareChars = [];
-    const malwareSymbols = ["⚠", "!", "X", "☠", "💀", "ERROR", "101", "0xBAD"];
-
-    function resizeMalware() {
-      malwareCanvas.width = window.innerWidth;
-      malwareCanvas.height = window.innerHeight;
+    function initMalware(w, h) {
       malwareChars = [];
-      for (let i = 0; i < 25; i++) {
+      const count = Math.max(18, Math.floor((w * h) / 80000));
+      for (let i = 0; i < count; i++) {
         malwareChars.push({
           text: malwareSymbols[Math.floor(Math.random() * malwareSymbols.length)],
-          x: Math.random() * malwareCanvas.width,
-          y: Math.random() * malwareCanvas.height,
-          speed: 0.5 + Math.random() * 1.5,
-          size: 14 + Math.random() * 20,
+          x: Math.random() * w,
+          y: Math.random() * h,
+          speed: 0.4 + Math.random() * 1.8,
+          size: 12 + Math.random() * 28,
+          fade: 0.6 + Math.random() * 0.6
         });
       }
     }
 
-    function drawMalware() {
-      mctx.clearRect(0, 0, malwareCanvas.width, malwareCanvas.height);
-      mctx.fillStyle = "rgba(255, 60, 60, 0.8)"; // malware = red glow
+    function drawMalware(w, h) {
+      mctx.clearRect(0, 0, w, h);
+      mctx.globalCompositeOperation = 'lighter';
 
       malwareChars.forEach(c => {
         mctx.font = `${c.size}px monospace`;
+        mctx.textBaseline = 'top';
+        mctx.fillStyle = `rgba(255,60,60,${c.fade})`;
+        mctx.shadowColor = 'rgba(255,60,60,0.9)';
+        mctx.shadowBlur = Math.min(24, c.size / 1.5);
         mctx.fillText(c.text, c.x, c.y);
         c.y += c.speed;
-        if (c.y > malwareCanvas.height) {
-          c.y = -10;
-          c.x = Math.random() * malwareCanvas.width;
+        c.x += Math.sin((Date.now() / 1000) + c.x) * 0.3;
+        if (c.y > h + 20) {
+          c.y = -20 - Math.random() * 60;
+          c.x = Math.random() * w;
           c.text = malwareSymbols[Math.floor(Math.random() * malwareSymbols.length)];
         }
       });
 
-      requestAnimationFrame(drawMalware);
+      mctx.shadowBlur = 0;
+      mctx.globalCompositeOperation = 'source-over';
     }
 
-    drawMalware();
+    function animate() {
+      const w = canvas.width / (window.devicePixelRatio || 1);
+      const h = canvas.height / (window.devicePixelRatio || 1);
+      drawRadar(w, h);
+      drawMalware(w, h);
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
   </script>
 </body>
 </html>
