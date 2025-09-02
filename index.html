@@ -9,19 +9,20 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: #e6e9ff;
-      background: #0a0f1f;
+      color: #101426;
+      background: radial-gradient(circle at center, #e8eefc 0%, #cbd7f6 100%);
       overflow-x: hidden;
     }
 
-    canvas#bg {
+    canvas#bg, canvas#malware {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
-      background: radial-gradient(circle at center, #0f162e 0%, #050814 100%);
+      background: transparent;
+      pointer-events: none;
     }
 
     header {
@@ -33,7 +34,7 @@
       margin-bottom: 10px;
     }
     header p {
-      color: #aebaff;
+      color: #2c3558;
     }
 
     main {
@@ -43,17 +44,18 @@
     }
 
     section {
-      background: rgba(17, 25, 50, 0.85);
-      border: 1px solid #1e2a5a;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #9aa8d9;
       border-radius: 16px;
       margin: 20px 0;
       padding: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       animation: fadeIn 1.5s ease;
+      color: #101426;
     }
 
     section h2 {
-      color: #7aa2ff;
+      color: #206030;
       margin-top: 0;
     }
 
@@ -72,6 +74,7 @@
 </head>
 <body>
   <canvas id="bg"></canvas>
+  <canvas id="malware"></canvas>
 
   <header>
     <h1>Winning the Invisible Battlespace</h1>
@@ -135,7 +138,7 @@
       const cy = canvas.height / 2;
       const radius = Math.min(canvas.width, canvas.height) / 2.2;
 
-      // Radar circles
+      // Radar circles (green)
       ctx.strokeStyle = 'rgba(0,255,0,0.2)';
       ctx.lineWidth = 1;
       for (let r = radius; r > 0; r -= radius / 4) {
@@ -144,7 +147,7 @@
         ctx.stroke();
       }
 
-      // Radar sweep
+      // Radar sweep (green)
       const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
       gradient.addColorStop(0, 'rgba(0,255,0,0.25)');
       gradient.addColorStop(1, 'rgba(0,255,0,0)');
@@ -161,7 +164,51 @@
     }
 
     drawRadar();
+
+    // Malware attack floating code effect
+    const malwareCanvas = document.getElementById('malware');
+    const mctx = malwareCanvas.getContext('2d');
+    resizeMalware();
+
+    window.addEventListener('resize', resizeMalware);
+
+    let malwareChars = [];
+    const malwareSymbols = ["⚠", "!", "X", "☠", "💀", "ERROR", "101", "0xBAD"];
+
+    function resizeMalware() {
+      malwareCanvas.width = window.innerWidth;
+      malwareCanvas.height = window.innerHeight;
+      malwareChars = [];
+      for (let i = 0; i < 25; i++) {
+        malwareChars.push({
+          text: malwareSymbols[Math.floor(Math.random() * malwareSymbols.length)],
+          x: Math.random() * malwareCanvas.width,
+          y: Math.random() * malwareCanvas.height,
+          speed: 0.5 + Math.random() * 1.5,
+          size: 14 + Math.random() * 20,
+        });
+      }
+    }
+
+    function drawMalware() {
+      mctx.clearRect(0, 0, malwareCanvas.width, malwareCanvas.height);
+      mctx.fillStyle = "rgba(255, 60, 60, 0.8)"; // malware = red glow
+
+      malwareChars.forEach(c => {
+        mctx.font = `${c.size}px monospace`;
+        mctx.fillText(c.text, c.x, c.y);
+        c.y += c.speed;
+        if (c.y > malwareCanvas.height) {
+          c.y = -10;
+          c.x = Math.random() * malwareCanvas.width;
+          c.text = malwareSymbols[Math.floor(Math.random() * malwareSymbols.length)];
+        }
+      });
+
+      requestAnimationFrame(drawMalware);
+    }
+
+    drawMalware();
   </script>
 </body>
 </html>
-
