@@ -136,7 +136,7 @@
       const radius = Math.min(canvas.width, canvas.height) / 2.2;
 
       // Radar circles
-      ctx.strokeStyle = 'rgba(122,162,255,0.2)';
+      ctx.strokeStyle = 'rgba(0,255,0,0.2)';
       ctx.lineWidth = 1;
       for (let r = radius; r > 0; r -= radius / 4) {
         ctx.beginPath();
@@ -146,8 +146,8 @@
 
       // Radar sweep
       const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-      gradient.addColorStop(0, 'rgba(122,162,255,0.25)');
-      gradient.addColorStop(1, 'rgba(122,162,255,0)');
+      gradient.addColorStop(0, 'rgba(0,255,0,0.25)');
+      gradient.addColorStop(1, 'rgba(0,255,0,0)');
 
       ctx.beginPath();
       ctx.moveTo(cx, cy);
@@ -164,3 +164,4 @@
   </script>
 </body>
 </html>
+
